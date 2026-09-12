@@ -1,0 +1,32 @@
+[
+  {
+    "id": "data/no-chained-assignment",
+    "severity": "warn",
+    "globs": ["**/*.py"],
+    "pattern": "\\]\\s*\\[[\"'][^\"']+[\"']\\]\\s*=|\\.ix\\[",
+    "message": "Chained assignment may write to a copy. Use a single `.loc[rows, cols] = ...`."
+  },
+  {
+    "id": "data/no-inplace",
+    "severity": "warn",
+    "globs": ["**/*.py"],
+    "pattern": "inplace\\s*=\\s*True",
+    "message": "`inplace=True` is not faster, breaks method chaining and is deprecated in pandas. Assign the result instead."
+  },
+  {
+    "id": "data/no-read-csv-untyped",
+    "severity": "warn",
+    "globs": ["**/*.py"],
+    "exclude": ["tests/**", "**/test_*.py"],
+    "pattern": "read_csv\\((?![^)]*(dtype|usecols|converters))[^)]*\\)",
+    "message": "Pass `dtype=` (and `usecols=`) to read_csv — inferred types silently corrupt ids, money and dates."
+  },
+  {
+    "id": "data/no-notebook-secret",
+    "severity": "block",
+    "globs": ["**/*.ipynb"],
+    "pattern": "\\b(api[_-]?key|secret|password|token)\\b[^\\n]{0,20}[:=]\\s*\\\\?[\"'][^\"'\\s]{8,}",
+    "flags": "i",
+    "message": "Notebooks are committed with their output. Read credentials from the environment instead."
+  }
+]

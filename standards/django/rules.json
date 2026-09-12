@@ -1,0 +1,37 @@
+[
+  {
+    "id": "django/no-debug-true",
+    "severity": "block",
+    "globs": ["**/settings*.py", "**/settings/**/*.py"],
+    "pattern": "^\\s*DEBUG\\s*=\\s*True",
+    "message": "DEBUG must default to off and come from the environment — debug pages expose source, settings and locals."
+  },
+  {
+    "id": "django/no-literal-secret-key",
+    "severity": "block",
+    "globs": ["**/settings*.py", "**/settings/**/*.py"],
+    "pattern": "^\\s*SECRET_KEY\\s*=\\s*[\"'][^\"']{8,}[\"']",
+    "message": "SECRET_KEY must come from the environment — a committed key lets anyone forge sessions."
+  },
+  {
+    "id": "django/no-allowed-hosts-wildcard",
+    "severity": "warn",
+    "globs": ["**/settings*.py", "**/settings/**/*.py"],
+    "pattern": "ALLOWED_HOSTS\\s*=\\s*\\[\\s*[\"']\\*[\"']",
+    "message": "List the hostnames you serve — a wildcard enables Host header attacks."
+  },
+  {
+    "id": "django/no-raw-sql-format",
+    "severity": "block",
+    "globs": ["**/*.py"],
+    "pattern": "\\.(raw|extra)\\(\\s*f[\"']|\\.(raw|extra)\\([^)]*%\\s*\\(|\\.(raw|extra)\\([^)]*\\.format\\(",
+    "message": "Pass parameters to .raw()/.extra() instead of formatting them in — this is SQL injection."
+  },
+  {
+    "id": "django/no-objects-get-unguarded",
+    "severity": "warn",
+    "globs": ["**/views*.py", "**/views/**/*.py", "**/api/**/*.py"],
+    "pattern": "\\.objects\\.get\\(",
+    "message": "`.objects.get()` raises DoesNotExist/MultipleObjectsReturned — use `get_object_or_404`, or handle both explicitly."
+  }
+]

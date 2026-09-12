@@ -1,0 +1,8 @@
+{
+  "description": "Core + packaging — a distributable library or CLI",
+  "packs": ["core", "packaging"],
+  "codePaths": ["src/**", "tests/**"],
+  "config": {
+    "analysis": { "requireDocstrings": true }
+  }
+}

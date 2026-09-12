@@ -1,0 +1,27 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ["3.10", "3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: python -m unittest discover -s tests
+        env:
+          PYTHONPATH: src
+      - run: python scripts/generate_docs.py --check
+      - run: python -m mast leakcheck .
+        env:
+          PYTHONPATH: src
+      - run: python -m mast standard check examples/acme-python
+        env:
+          PYTHONPATH: src

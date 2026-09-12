@@ -1,0 +1,24 @@
+[
+  {
+    "id": "packaging/no-print-in-library",
+    "severity": "warn",
+    "globs": ["src/**/*.py"],
+    "exclude": ["**/__main__.py", "**/cli*.py", "tests/**"],
+    "pattern": "^\\s*print\\(",
+    "message": "A library must not write to stdout. Use `logging.getLogger(__name__)` and let the application decide."
+  },
+  {
+    "id": "packaging/no-exact-pin-in-library",
+    "severity": "warn",
+    "globs": ["pyproject.toml", "setup.cfg"],
+    "pattern": "^\\s*[\"'][A-Za-z][A-Za-z0-9._-]*==",
+    "message": "Libraries declare ranges, not exact pins — an exact pin makes your package uninstallable alongside others."
+  },
+  {
+    "id": "packaging/no-setup-py-install",
+    "severity": "warn",
+    "globs": ["**/*.md", "**/*.sh", "**/*.yml", "**/*.yaml"],
+    "pattern": "python\\s+setup\\.py\\s+(install|develop)",
+    "message": "`setup.py install` is removed. Use `pip install .` or `pip install -e .`."
+  }
+]

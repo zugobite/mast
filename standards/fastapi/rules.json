@@ -1,0 +1,30 @@
+[
+  {
+    "id": "fastapi/no-sync-client-in-async",
+    "severity": "warn",
+    "globs": ["**/*.py"],
+    "pattern": "^\\s*(import\\s+requests|from\\s+requests\\s+import)",
+    "message": "`requests` is synchronous and blocks the event loop. Use `httpx.AsyncClient` (or `httpx` sync in a thread)."
+  },
+  {
+    "id": "fastapi/no-orm-response",
+    "severity": "warn",
+    "globs": ["**/routers/**/*.py", "**/api/**/*.py", "**/routes/**/*.py"],
+    "pattern": "response_model\\s*=\\s*(?!None)[A-Z]\\w*(Model|Table|Entity|ORM)\\b",
+    "message": "Return a response schema, not the ORM model — ORM objects leak columns the API never promised."
+  },
+  {
+    "id": "fastapi/no-mutable-field-default",
+    "severity": "warn",
+    "globs": ["**/*.py"],
+    "pattern": ":\\s*(list|dict|set|List|Dict|Set)\\[[^\\]]*\\]\\s*=\\s*(\\[\\s*\\]|\\{\\s*\\})",
+    "message": "Use `Field(default_factory=list)` — a literal mutable default is shared by every instance."
+  },
+  {
+    "id": "fastapi/no-env-in-handler",
+    "severity": "warn",
+    "globs": ["**/routers/**/*.py", "**/api/**/*.py", "**/routes/**/*.py"],
+    "pattern": "os\\.(environ|getenv)\\b",
+    "message": "Read configuration through a cached Settings dependency, so it is validated once and overridable in tests."
+  }
+]

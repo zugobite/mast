@@ -1,0 +1,11 @@
+[
+  {
+    "id": "acme/float-money",
+    "severity": "warn",
+    "globs": ["**/*.py"],
+    "exclude": ["tests/**", "**/test_*.py"],
+    "pattern": "\\b(price|amount|total|balance)\\w*\\s*[:=]\\s*\\d+\\.\\d+",
+    "flags": "i",
+    "message": "Money is integer cents plus a currency code — never a float."
+  }
+]

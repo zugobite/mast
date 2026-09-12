@@ -1,0 +1,11 @@
+{
+  "description": "Acme FastAPI service — core + HTTP + FastAPI + Acme context",
+  "packs": ["core", "web", "fastapi", "acme-shared", "acme-api"],
+  "codePaths": ["src/**", "app/**", "api/**", "routers/**", "services/**", "tests/**"],
+  "config": {
+    "severityOverrides": { "web/no-wildcard-cors": "block" },
+    "stopChecks": [
+      { "name": "typecheck", "command": "{run}mypy .", "when": ["**/*.py"], "timeoutSec": 300, "enabled": false }
+    ]
+  }
+}

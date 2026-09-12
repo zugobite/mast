@@ -1,0 +1,6 @@
+{
+  "description": "Core + HTTP + FastAPI conventions",
+  "packs": ["core", "web", "fastapi"],
+  "codePaths": ["src/**", "app/**", "api/**", "routers/**", "services/**", "tests/**"],
+  "config": {}
+}

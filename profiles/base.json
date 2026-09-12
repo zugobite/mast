@@ -1,0 +1,6 @@
+{
+  "description": "Core Python standards only — scripts, tooling, anything unclassified",
+  "packs": ["core"],
+  "codePaths": ["src/**", "app/**", "lib/**", "tests/**"],
+  "config": {}
+}

@@ -1,0 +1,6 @@
+{
+  "description": "Core + HTTP service conventions — Flask, Starlette, aiohttp, Litestar…",
+  "packs": ["core", "web"],
+  "codePaths": ["src/**", "app/**", "api/**", "services/**", "tests/**"],
+  "config": {}
+}

@@ -1,0 +1,19 @@
+{
+  "name": "acme",
+  "description": "Example: Acme's Python engineering standards, layered on the mast core.",
+  "core": ">=1.0.0",
+  "defaultPack": "acme-shared",
+  "defaultProfile": "acme-base",
+  "privateTerms": ["AcmeCorp", "acme.internal"],
+  "detect": [
+    { "profile": "acme-api", "name": "^acme-", "anyDependency": ["fastapi"] },
+    { "profile": "acme-data", "name": "^acme-", "anyDependency": ["pandas", "polars"] },
+    { "profile": "acme-base", "name": "^acme-" }
+  ],
+  "config": {
+    "severityOverrides": { "core/no-naive-now": "block" },
+    "bashGuards": [
+      { "id": "acme/no-prod-deploy", "pattern": "\\bdeploy\\b.*--prod\\b", "message": "Production deploys go through CI — push a branch instead." }
+    ]
+  }
+}

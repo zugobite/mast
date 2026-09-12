@@ -1,0 +1,16 @@
+[
+  {
+    "id": "acme/raw-http-client",
+    "severity": "warn",
+    "globs": ["**/routers/**/*.py", "**/api/**/*.py", "**/routes/**/*.py"],
+    "pattern": "\\b(httpx|requests)\\.(get|post|put|patch|delete)\\(",
+    "message": "Use acme_http.client() — it adds the tenant header and auth."
+  },
+  {
+    "id": "acme/handler-strftime",
+    "severity": "warn",
+    "globs": ["**/routers/**/*.py", "**/api/**/*.py", "**/routes/**/*.py"],
+    "pattern": "\\.strftime\\(",
+    "message": "Format dates with format_clinic_time(instant, clinic)."
+  }
+]

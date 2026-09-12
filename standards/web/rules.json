@@ -1,0 +1,24 @@
+[
+  {
+    "id": "web/no-wildcard-cors",
+    "severity": "warn",
+    "globs": ["**/*.py"],
+    "pattern": "allow_origins\\s*=\\s*\\[\\s*[\"']\\*[\"']|CORS_ALLOW_ALL_ORIGINS\\s*=\\s*True|Access-Control-Allow-Origin[\"']?\\s*[:=]\\s*[\"']\\*",
+    "message": "List the origins you actually serve — a wildcard lets any site call this API from a user's browser."
+  },
+  {
+    "id": "web/no-unbounded-query",
+    "severity": "warn",
+    "globs": ["**/*.py"],
+    "exclude": ["tests/**", "**/test_*.py", "**/migrations/**"],
+    "pattern": "\\.objects\\.all\\(\\)\\s*$|session\\.query\\([A-Z]\\w+\\)\\.all\\(\\)",
+    "message": "Fetching a whole table does not survive production data. Filter, paginate, and select only the columns you need."
+  },
+  {
+    "id": "web/no-request-in-service",
+    "severity": "warn",
+    "globs": ["**/services/**/*.py", "**/service/**/*.py", "**/domain/**/*.py"],
+    "pattern": "\\bfrom\\s+(flask|fastapi|starlette|django\\.http)\\b|\\brequest\\.(GET|POST|json|args|form)\\b",
+    "message": "The service layer must not know about HTTP. Pass validated values in from the transport layer."
+  }
+]

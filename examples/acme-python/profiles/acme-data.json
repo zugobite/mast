@@ -1,0 +1,8 @@
+{
+  "description": "Acme data work — core + data + Acme context",
+  "packs": ["core", "data", "acme-shared"],
+  "codePaths": ["src/**", "pipelines/**", "dags/**", "jobs/**", "tests/**"],
+  "config": {
+    "analysis": { "requireTypeHints": true, "maxFunctionLines": 60 }
+  }
+}

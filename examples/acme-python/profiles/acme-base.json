@@ -1,0 +1,5 @@
+{
+  "description": "Acme shared conventions on the mast core",
+  "packs": ["core", "acme-shared"],
+  "codePaths": ["src/**", "app/**", "tests/**"]
+}

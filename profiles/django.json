@@ -1,0 +1,14 @@
+{
+  "description": "Core + HTTP + Django conventions",
+  "packs": ["core", "web", "django"],
+  "codePaths": ["src/**", "apps/**", "api/**", "config/**", "tests/**"],
+  "config": {
+    "analysis": {
+      "excludeGlobs": ["**/migrations/**", "**/node_modules/**", "**/.venv/**", "**/venv/**", "**/build/**", "**/dist/**", "**/__pycache__/**"]
+    },
+    "stopChecks": [
+      { "name": "django checks", "command": "{run}python manage.py check", "when": ["**/*.py"], "timeoutSec": 120, "enabled": true },
+      { "name": "missing migrations", "command": "{run}python manage.py makemigrations --check --dry-run", "when": ["**/models*.py", "**/models/**/*.py"], "timeoutSec": 120, "enabled": true }
+    ]
+  }
+}

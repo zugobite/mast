@@ -1,0 +1,94 @@
+[
+  {
+    "id": "core/no-private-keys",
+    "severity": "block",
+    "globs": [],
+    "exclude": [".claude/standards/**"],
+    "pattern": "-----BEGIN (RSA |EC |OPENSSH |DSA |PGP )?PRIVATE KEY-----",
+    "message": "Private key material must never be written into the repo. Use env vars or a secret manager."
+  },
+  {
+    "id": "core/no-cloud-keys",
+    "severity": "block",
+    "globs": [],
+    "exclude": [".claude/standards/**"],
+    "pattern": "\\b(AKIA[0-9A-Z]{16}|AIza[0-9A-Za-z_-]{35}|sk-(ant|live|proj)-[A-Za-z0-9_-]{20,}|ghp_[A-Za-z0-9]{36}|xox[baprs]-[A-Za-z0-9-]{10,})\\b",
+    "message": "Looks like a live API key or token. Load it from the environment instead."
+  },
+  {
+    "id": "core/no-debugger",
+    "severity": "block",
+    "globs": ["**/*.py"],
+    "pattern": "^\\s*(breakpoint\\(\\)|import\\s+(pdb|ipdb|pudb)\\b|(pdb|ipdb|pudb)\\.set_trace\\(\\)|debugpy\\.breakpoint\\(\\))",
+    "message": "Remove the debugger statement — it hangs CI and any non-interactive run."
+  },
+  {
+    "id": "core/no-hardcoded-secret",
+    "severity": "warn",
+    "globs": ["**/*.{py,yaml,yml,toml,ini,cfg,json,sh,env.example}", "Dockerfile*", "**/*.tf"],
+    "exclude": ["tests/**", "**/test_*.py", "**/*_test.py", ".claude/standards/**"],
+    "pattern": "\\b(api[_-]?key|secret|password|passwd|access[_-]?token|private[_-]?key)\\b\\s*[:=]\\s*[\"']?[^\"'\\s${}<>]{12,}[\"']?",
+    "flags": "i",
+    "message": "Possible hardcoded credential. Load it from the environment or a secret manager."
+  },
+  {
+    "id": "core/no-blanket-type-ignore",
+    "severity": "warn",
+    "globs": ["**/*.py", "**/*.pyi"],
+    "pattern": "#\\s*type:\\s*ignore\\s*(?!\\[)",
+    "message": "Narrow the ignore to the error code (`# type: ignore[arg-type]`) and say why — a blanket ignore hides future errors too."
+  },
+  {
+    "id": "core/no-blanket-noqa",
+    "severity": "warn",
+    "globs": ["**/*.py"],
+    "pattern": "#\\s*noqa\\s*(?![:\\w])",
+    "message": "Name the rule you are silencing (`# noqa: E501`) so the next linter error is not hidden too."
+  },
+  {
+    "id": "core/no-todo-stubs",
+    "severity": "warn",
+    "globs": ["**/*.py"],
+    "pattern": "(TODO|FIXME|XXX|HACK)[:\\s].*(implement|later|stub|placeholder|for now)",
+    "flags": "i",
+    "message": "Placeholder code left behind. Finish the implementation, or tell the user explicitly why it is deferred."
+  },
+  {
+    "id": "core/no-skip-without-reason",
+    "severity": "warn",
+    "globs": ["tests/**", "**/test_*.py", "**/*_test.py"],
+    "pattern": "@pytest\\.mark\\.(skip|xfail)\\s*(\\(\\s*\\))?\\s*$",
+    "message": "Give every skip/xfail a reason (`@pytest.mark.skip(reason=\"…\")`), so a silently disabled test can be found later."
+  },
+  {
+    "id": "core/no-sys-path-hack",
+    "severity": "warn",
+    "globs": ["**/*.py"],
+    "exclude": ["**/conftest.py", "docs/**", ".claude/standards/**"],
+    "pattern": "sys\\.path\\.(insert|append)\\(",
+    "message": "Patching sys.path hides a packaging problem. Install the package (`pip install -e .`) or fix the layout instead."
+  },
+  {
+    "id": "core/no-naive-now",
+    "severity": "warn",
+    "globs": ["**/*.py"],
+    "exclude": ["tests/**", "**/test_*.py"],
+    "pattern": "datetime\\.now\\(\\s*\\)|date\\.today\\(\\s*\\)",
+    "message": "Naive local time drifts with the server's timezone. Use `datetime.now(timezone.utc)` and convert only for display."
+  },
+  {
+    "id": "core/pin-requirements",
+    "severity": "warn",
+    "globs": ["requirements*.txt", "requirements/*.txt"],
+    "pattern": "^[A-Za-z][A-Za-z0-9._-]*(\\[[^\\]]+\\])?\\s*(>=|>|~=|\\^)?\\s*[0-9]*\\s*$",
+    "message": "Pin dependencies (`package==1.2.3`) or use a lockfile — an unpinned build is not reproducible."
+  },
+  {
+    "id": "core/no-docker-latest",
+    "severity": "warn",
+    "globs": ["Dockerfile*", "**/Dockerfile*"],
+    "pattern": "^FROM\\s+\\S+:latest\\b|^FROM\\s+[^:\\s]+\\s*$",
+    "flags": "i",
+    "message": "Pin the base image to a digest or explicit version — `latest` makes builds unreproducible."
+  }
+]

@@ -1,0 +1,8 @@
+{
+  "description": "Core + data engineering and analysis conventions",
+  "packs": ["core", "data"],
+  "codePaths": ["src/**", "pipelines/**", "dags/**", "jobs/**", "tests/**"],
+  "config": {
+    "analysis": { "requireTypeHints": true, "maxFunctionLines": 60 }
+  }
+}
